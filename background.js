@@ -1,37 +1,79 @@
-console.log("_____ FROM BACKGROUND SCRIPT")
-
-let tab;
+const messageToActionMapping = new Map([
+  ["check-comment", checkComment],
+]);
 
 browser.runtime.onMessage.addListener((message, context) => {
-  console.log("Background script received: ", message, context)
-  tab = context.tab.id
-  console.log("Tab id: ", tab)
+  console.log("Background script received: ", message, context);
 
-  console.log("Start inject executable script")
-  browser.tabs.executeScript(tab, {
-    code: `(function() {
-    
-console.log(">>>> FROM FACEBOOK <<<<<")
-x = window.document.querySelectorAll("._5mdd")
-console.log(x.length)
-x.forEach((e) => {
-  if (e.textContent.toLowerCase().includes("manhua")) {
-    console.log("-- BANGER ALERT!", e)
-    e.textContent = "FUCK THIS BANGER ALERT!"
+  const action = messageToActionMapping.get(message);
+  if (action) {
+    action(context).catch((e) => console.error(`Error processing message ${message}`, e))
+  } else {
+    console.error(`Invalid message ${message}`)
   }
 })
 
-})()`,
-    allFrames: true
-  }).then((...args) => {
-    console.log("Promise done: ", args)
-  }).catch(console.error);
-  console.log("Done inject executable script")
-})
+async function checkComment(context) {
+  const tab = context.tab.id
 
-setTimeout(() => {
-  console.log("Sending message to content from background")
-  console.log("tabid: ", tab);
-  browser.tabs.sendMessage(tab, "good night")
-  console.log("DONE Sending message to content from background")
-}, 4000)
+  console.log("Start inject executable script")
+
+  await browser.tabs.executeScript(tab, {
+    code: "BAN_DOMAINS = " + JSON.stringify(BAN_DOMAINS) + ";" +
+      "replacement = " + JSON.stringify(replacement) + ";" +
+      "(" +
+      function () {
+        const linksInComments = window.document.querySelectorAll("._5mdd a")
+        console.log(browser.runtime.getURL("images/spam.png"));
+        console.log(`Found ${linksInComments.length} links in comment section`)
+        linksInComments.forEach((aTag) => {
+          const linkText = aTag.textContent.toLowerCase();
+          for (let domain of BAN_DOMAINS) {
+            if (linkText.includes(domain)) {
+              console.log("-- BANGER ALERT!", aTag)
+              aTag.innerHTML = `<span>HELLO</span>`
+              aTag.parentElement.parentElement.parentElement.innerHTML = replacement;
+              console.log("replaced")
+              break
+            }
+          }
+        })
+      }
+      + ")()",
+    allFrames: true
+  })
+}
+console.log(browser.runtime.getURL("images/spam.png"));
+
+const replacement = `
+  <div><div><a class="_2rn3 _4-eo">
+    <div class="uiScaledImageContainer _4-ep" style="width: 225px; height: 225px">
+         <img class="scaledImageFitHeight img" width="225" height="225" alt="Fuck banger alert"
+            src="${browser.runtime.getURL("images/spam.png")}">
+    </div>
+  </a></div></div>
+`
+
+const BAN_DOMAINS = [
+  "giphy.com",
+  "abyssgiphy.com",
+  "linkincgiphy.com",
+  "martialgiphy.com",
+  "swordgiphy.com",
+  "geoagiphy.com",
+  "hologiphy.com",
+  "hologiphy.com",
+  "mangaweb.xyz",
+  "arcanemanga.org",
+  "manga-nato.com",
+  "factmanga.com",
+  "mangaeclipse.com",
+  "mangameta.in",
+  "mangaflam.com",
+  "mangashark.com",
+  "mangallama.com",
+  "mangaeclipse.com",
+  "bit.do",
+  "minepi.com",
+  "mamga.abyssgiphy.com"
+];

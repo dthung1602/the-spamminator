@@ -10,7 +10,7 @@
         "*://readmanganato.com/manga-*"
       ],
       "js": [
-        "index.js"
+        "mangasite.js"
       ],
       "all_frames": true
     },
@@ -29,12 +29,9 @@
       "background.js"
     ]
   },
+  "web_accessible_resources": ["images/spam.png"],
   "permissions": [
-    "https://mangabookmark.herokuapp.com/*",
-    "https://dev-manga-bookmark.herokuapp.com/*",
-    "http://localhost/*",
     "https://www.facebook.com/plugins/comments*",
-    "http://www.facebook.com/plugins/comments*",
     "tabs",
     "activeTab"
   ]
