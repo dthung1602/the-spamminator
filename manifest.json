@@ -1,0 +1,41 @@
+{
+  "manifest_version": 2,
+  "name": "FuckBangerAlert",
+  "version": "0.1",
+  "description": "Remove banger alert spams from comment section of mangakakalot",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://mangakakalot.com/chapter/*",
+        "*://readmanganato.com/manga-*"
+      ],
+      "js": [
+        "index.js"
+      ],
+      "all_frames": true
+    },
+    {
+      "matches": [
+        "*://www.facebook.com/plugins/comments*"
+      ],
+      "js": [
+        "facebook.js"
+      ],
+      "all_frames": true
+    }
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "permissions": [
+    "https://mangabookmark.herokuapp.com/*",
+    "https://dev-manga-bookmark.herokuapp.com/*",
+    "http://localhost/*",
+    "https://www.facebook.com/plugins/comments*",
+    "http://www.facebook.com/plugins/comments*",
+    "tabs",
+    "activeTab"
+  ]
+}
