@@ -56,13 +56,6 @@ const replacement = `
 
 const BAN_DOMAINS = [
   "giphy.com",
-  "abyssgiphy.com",
-  "linkincgiphy.com",
-  "martialgiphy.com",
-  "swordgiphy.com",
-  "geoagiphy.com",
-  "hologiphy.com",
-  "hologiphy.com",
   "mangaweb.xyz",
   "arcanemanga.org",
   "manga-nato.com",
@@ -73,7 +66,7 @@ const BAN_DOMAINS = [
   "mangashark.com",
   "mangallama.com",
   "mangaeclipse.com",
+  "mangalilo.com",
   "bit.do",
-  "minepi.com",
-  "mamga.abyssgiphy.com"
+  "minepi.com"
 ];
