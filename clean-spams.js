@@ -1,30 +1,3 @@
-const messageToActionMapping = new Map([
-  ["check-comment", checkComment],
-]);
-
-browser.runtime.onMessage.addListener((message, context) => {
-  console.log("Background script received: ", message, context);
-
-  const action = messageToActionMapping.get(message);
-  if (action) {
-    action(context).catch((e) => console.error(`Error processing message ${message}`, e))
-  } else {
-    console.error(`Invalid message ${message}`)
-  }
-})
-
-async function checkComment(context) {
-  const tab = context.tab.id
-
-  console.log("Start inject executable script")
-
-  await browser.tabs.executeScript(tab, {
-    code,
-    allFrames: true
-  })
-}
-
-const code = `
 (function () {
   const BAN_DOMAINS = [
     "giphy.com",
@@ -44,14 +17,14 @@ const code = `
     "minepi.com"
   ];
 
-  const REPLACEMENT_HTML = \`
+  const REPLACEMENT_HTML = `
   <div><div><a class="_2rn3 _4-eo">
     <div class="uiScaledImageContainer _4-ep" style="width: 225px; height: 225px">
          <img class="scaledImageFitHeight img" width="225" height="225" alt="Fuck banger alert" 
          src="${browser.runtime.getURL("images/spam.png")}">
     </div>
   </a></div></div>
-\`;
+`;
 
   function containBanDomain(node) {
     const linkText = node.textContent.toLowerCase();
@@ -70,7 +43,7 @@ const code = `
   }
 
   function log(nodes) {
-    console.log("Found " + nodes.length + " bangers");
+    console.log(`Found ${nodes.length} bangers`);
   }
 
   function replaceLinksInNestedComments() {
@@ -94,5 +67,3 @@ const code = `
   replaceLinksInNestedComments();
   replaceLinksInComments();
 })();
-
-`
