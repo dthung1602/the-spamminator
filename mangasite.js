@@ -1,14 +1,9 @@
-const CHECK_INTERVAL = 2000
+const CHECK_INTERVAL = 3000;
 
-async function pingBackgroundProcess() {
-  try {
-    console.log("Ping background process")
-    await browser.runtime.sendMessage("check-comment")
-  } catch (e) {
-    console.error(e)
-  }
+function cleanSpams() {
+  console.log(`Start checking for spams in ${window.location}`);
+  browser.runtime.sendMessage("clean-spams").catch(console.error);
 }
 
-// noinspection JSIgnoredPromiseFromCall
-pingBackgroundProcess()
-setInterval(pingBackgroundProcess, 5000)
+cleanSpams();
+setInterval(cleanSpams, CHECK_INTERVAL);

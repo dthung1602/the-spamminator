@@ -1,4 +1,8 @@
 (function () {
+  if (!window.location.hostname.includes("facebook")) {
+    return;
+  }
+
   const BAN_DOMAINS = [
     "giphy.com",
     "mangaweb.xyz",
@@ -43,7 +47,7 @@
   }
 
   function log(nodes) {
-    console.log(`Found ${nodes.length} bangers`);
+    console.log(`Found ${nodes.length} bangers in ${window.document.title}`);
   }
 
   function replaceLinksInNestedComments() {
