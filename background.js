@@ -13,6 +13,21 @@ browser.runtime.onMessage.addListener((message, context) => {
   }
 })
 
+browser.storage.local.set({
+  cleanSpamAction: "replace-with-image",
+  cleanSpamOptions: {
+    // url: browser.runtime.getURL("images/spam.png")
+    url: "random"
+  }
+}).catch(console.error)
+
+browser.storage.local.set({
+  cleanSpamAction: "replace-with-text",
+  cleanSpamOptions: {
+    text: "🔫 This spam message has been obliterated by the Spamminator 🔫"
+  }
+}).catch(console.error)
+
 function cleanSpams(context) {
   return browser.tabs.executeScript(
     context.tab.id, {

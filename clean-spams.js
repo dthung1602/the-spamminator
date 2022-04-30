@@ -1,4 +1,4 @@
-(function () {
+(async function () {
   if (!window.location.hostname.includes("facebook")) {
     return;
   }
@@ -25,18 +25,52 @@
   <div><div><a class="_2rn3 _4-eo">
     <div class="uiScaledImageContainer _4-ep" style="width: 225px; height: 225px">
          <img class="scaledImageFitHeight img" width="225" height="225" alt="Fuck banger alert" 
-         src="${browser.runtime.getURL("images/spam.png")}">
+         src="${browser.runtime.getURL("images/spam-man.png")}">
     </div>
   </a></div></div>
 `;
 
+  const {
+    cleanSpamAction,
+    cleanSpamOptions
+  } = await browser.storage.local.get(["cleanSpamAction", "cleanSpamOptions"]);
+
+  console.log(cleanSpamAction, cleanSpamOptions);
+
+  const actionMapping = new Map([
+    ["replace-with-image", replaceWithImage],
+    ["replace-with-text", replaceWithText],
+  ]);
+
+  const action = actionMapping.get(cleanSpamAction);
+
+  function replaceWithImage(node) {
+    const url = cleanSpamOptions.url === "random" ? getRandomLocalImage() : cleanSpamOptions.url;
+    node.innerHTML = `
+      <div><div><a class="_2rn3 _4-eo">
+        <div class="uiScaledImageContainer _4-ep" style="height: 300px">
+          <img src="${url}" class="scaledImageFitHeight img" height="300" alt="This spam was obliterated by the Spamminator">
+        </div>
+      </a></div></div>
+    `
+  }
+
+  function getRandomLocalImage() {
+    const LOCAL_IMAGES = [
+      "spam.png",
+      "spam-man.png"
+    ];
+    const index = Math.floor(Math.random() * LOCAL_IMAGES.length);
+    return browser.runtime.getURL(`images/${LOCAL_IMAGES[index]}`);
+  }
+
+  function replaceWithText(node) {
+    node.innerHTML = `<span>${cleanSpamOptions.text}</span>`
+  }
+
   function containBanDomain(node) {
     const linkText = node.textContent.toLowerCase();
     return BAN_DOMAINS.some((domain) => linkText.includes(domain));
-  }
-
-  function replaceHTML(node) {
-    node.innerHTML = REPLACEMENT_HTML;
   }
 
   function getAncestor(node, num) {
@@ -56,7 +90,7 @@
     Array.from(linksInNestedComments)
       .filter(containBanDomain)
       .map((node) => getAncestor(node, 11).querySelector("._3-8m"))
-      .forEach(replaceHTML);
+      .forEach(action);
   }
 
   function replaceLinksInComments() {
@@ -65,7 +99,7 @@
     Array.from(linksInComments)
       .filter(containBanDomain)
       .map((node) => getAncestor(node, 3))
-      .forEach(replaceHTML);
+      .forEach(action);
   }
 
   replaceLinksInNestedComments();

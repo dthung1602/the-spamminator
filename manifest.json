@@ -21,9 +21,11 @@
     ]
   },
   "web_accessible_resources": [
+    "images/spam-man.png",
     "images/spam.png"
   ],
   "permissions": [
+    "storage",
     "activeTab",
     "tabs",
     "<all_urls>"
