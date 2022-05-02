@@ -1,41 +1,14 @@
 (async function () {
-  if (!window.location.hostname.includes("facebook")) {
-    return;
-  }
-
-  const BAN_DOMAINS = [
-    "giphy.com",
-    "mangaweb.xyz",
-    "arcanemanga.org",
-    "manga-nato.com",
-    "factmanga.com",
-    "mangaeclipse.com",
-    "mangameta.in",
-    "mangaflam.com",
-    "mangashark.com",
-    "mangallama.com",
-    "mangaeclipse.com",
-    "mangalilo.com",
-    "readerzoneclub.xyz",
-    "bit.do",
-    "minepi.com"
-  ];
-
-  const REPLACEMENT_HTML = `
-  <div><div><a class="_2rn3 _4-eo">
-    <div class="uiScaledImageContainer _4-ep" style="width: 225px; height: 225px">
-         <img class="scaledImageFitHeight img" width="225" height="225" alt="Fuck banger alert" 
-         src="${browser.runtime.getURL("images/spam-man.png")}">
-    </div>
-  </a></div></div>
-`;
-
   const {
+    enable,
+    banDomains,
     cleanSpamAction,
     cleanSpamOptions
-  } = await browser.storage.local.get(["cleanSpamAction", "cleanSpamOptions"]);
+  } = await browser.storage.local.get(["enable", "banDomains", "cleanSpamAction", "cleanSpamOptions"]);
 
-  console.log(cleanSpamAction, cleanSpamOptions);
+  if (!window.location.hostname.includes("facebook") || !enable) {
+    return;
+  }
 
   const actionMapping = new Map([
     ["replace-with-image", replaceWithImage],
@@ -70,7 +43,7 @@
 
   function containBanDomain(node) {
     const linkText = node.textContent.toLowerCase();
-    return BAN_DOMAINS.some((domain) => linkText.includes(domain));
+    return banDomains.some((domain) => linkText.includes(domain));
   }
 
   function getAncestor(node, num) {
