@@ -3,19 +3,22 @@
 <head>
     <style>
         body {
-            width: 300px;
+            width: 350px;
             min-height: 400px;
             padding: 1rem;
-            border: 1px solid black;
+            /*border: 1px solid gray;*/
+
+            background-color: #ff9295;
 
             line-height: 1.6;
             font-weight: 400;
             font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            color: #222;
+            color: white;
         }
 
         header {
             text-align: center;
+            font-weight: bold;
         }
 
         .title {
@@ -24,7 +27,7 @@
 
         .logo {
             width: 6rem;
-            margin: 2rem 0;
+            margin: 1rem 0;
         }
 
         main {
@@ -56,8 +59,12 @@
         }
 
         input[type='text']:focus, select:focus {
-            border: 1px solid #33C3F0;
+            border: 2px solid #fac400;
             outline: 0;
+        }
+
+        label[for="action"] {
+            font-size: large;
         }
 
         /**
@@ -69,7 +76,6 @@
         }
 
         .toggle-container {
-            background-color: #ff9295;
             position: relative;
             height: 90px;
             width: 100%;

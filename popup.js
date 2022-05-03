@@ -36,9 +36,9 @@ async function loadSettings() {
   document.getElementById("text").value = cleanSpamOptions.text || "";
 
   if (enable) {
-    document.querySelector(".toggle-container").classList.add("on");
+    document.querySelector("body").classList.add("on");
   } else {
-    document.querySelector(".toggle-container").classList.remove("on");
+    document.querySelector("body").classList.remove("on");
   }
 
   document.getElementById(cleanSpamAction).classList.remove("hidden");
@@ -49,7 +49,7 @@ loadSettings().catch(console.error);
 // https://codepen.io/agoodwin/pen/JBvBPr
 const toggle = document.querySelector('#toggle');
 const toggleOnOff = () => {
-  const enable = document.querySelector(".toggle-container").classList.toggle('on');
+  const enable = document.querySelector("body").classList.toggle('on');
   browser.storage.local.set({ enable }).catch(console.error);
   return false;
 }
