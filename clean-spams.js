@@ -13,6 +13,7 @@
   const actionMapping = new Map([
     ["replace-with-image", replaceWithImage],
     ["replace-with-text", replaceWithText],
+    ["remove", remove]
   ]);
 
   const action = actionMapping.get(cleanSpamAction);
@@ -41,14 +42,21 @@
     node.innerHTML = `<span>${cleanSpamOptions.text}</span>`
   }
 
+  function remove(node) {
+    getAncestor(node, 6, "_3-8y").remove();
+  }
+
   function containBanDomain(node) {
     const linkText = node.textContent.toLowerCase();
     return banDomains.some((domain) => linkText.includes(domain));
   }
 
-  function getAncestor(node, num) {
+  function getAncestor(node, num, tillEncounterClass) {
     for (let i = 0; i < num; i++) {
       node = node.parentNode
+      if (node.classList.contains(tillEncounterClass)) {
+        break
+      }
     }
     return node;
   }
