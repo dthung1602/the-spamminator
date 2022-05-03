@@ -19,7 +19,9 @@
   const action = actionMapping.get(cleanSpamAction);
 
   function replaceWithImage(node) {
-    const url = cleanSpamOptions.url === "random" ? getRandomLocalImage() : cleanSpamOptions.url;
+    const url = cleanSpamOptions.url === "random"
+      ? getRandomLocalImage()
+      : normalizeImageURL(cleanSpamOptions.url);
     node.innerHTML = `
       <div><div><a class="_2rn3 _4-eo">
         <div class="uiScaledImageContainer _4-ep" style="height: 300px">
@@ -36,6 +38,13 @@
     ];
     const index = Math.floor(Math.random() * LOCAL_IMAGES.length);
     return browser.runtime.getURL(`images/${LOCAL_IMAGES[index]}`);
+  }
+
+  function normalizeImageURL(url) {
+    if (!url.startsWith("http")) {
+      url = browser.runtime.getURL(`images/${url}`);
+    }
+    return url;
   }
 
   function replaceWithText(node) {

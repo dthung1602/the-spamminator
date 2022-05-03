@@ -31,7 +31,10 @@
   },
   "web_accessible_resources": [
     "images/spam-man.png",
-    "images/spam.png"
+    "images/spam.png",
+    "normalize.css",
+    "skeleton.css",
+    "popup.js"
   ],
   "permissions": [
     "storage",

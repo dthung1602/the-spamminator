@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <style>
         body {
             width: 300px;
-            height: 400px;
-            background: white;
-            color: black;
+            min-height: 400px;
             padding: 1rem;
-            font-family: 'Roboto', sans-serif;
+            border: 1px solid black;
+
+            line-height: 1.6;
+            font-weight: 400;
+            font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #222;
         }
 
         header {
@@ -27,8 +27,37 @@
             margin: 2rem 0;
         }
 
+        main {
+            text-align: center;
+        }
+
+        main > * {
+            margin: 1rem 0;
+        }
+
+        label[for='action'] {
+            display: block;
+            margin-bottom: 1rem;
+        }
+
         .hidden {
             display: none;
+        }
+
+        input[type='text'], select {
+            width: 100%;
+            height: 38px;
+            padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+            background-color: #fff;
+            border: 1px solid #D1D1D1;
+            border-radius: 4px;
+            box-shadow: none;
+            box-sizing: border-box;
+        }
+
+        input[type='text']:focus, select:focus {
+            border: 1px solid #33C3F0;
+            outline: 0;
         }
 
         /**
@@ -45,6 +74,7 @@
             height: 90px;
             width: 100%;
         }
+
         .toggle {
             position: absolute;
             top: 50%;
@@ -52,6 +82,7 @@
             transform: translate3d(-50%, -50%, 0);
             transition: background-color 0.2s cubic-bezier(0, -1.85, 0.27, 1.75);
         }
+
         .toggle:before {
             content: 'OFF';
             position: absolute;
@@ -60,6 +91,7 @@
             font-size: 18px;
             color: #fff;
         }
+
         .toggle:after {
             content: 'ON';
             position: absolute;
@@ -68,6 +100,7 @@
             font-size: 18px;
             color: rgba(253, 15, 21, 0.31);
         }
+
         .toggle label {
             position: relative;
             display: inline-block;
@@ -79,6 +112,7 @@
             box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.1), 0px 9px 15px 0px #ef4247;
             -webkit-tap-highlight-color: transparent;
         }
+
         .toggle label:before {
             content: "";
             position: absolute;
@@ -92,26 +126,33 @@
             border-radius: 46px;
             box-shadow: inset 0px 0px 0px 8px #fff;
         }
+
         .toggle input {
             display: none;
         }
+
         .toggle input:checked + label {
             background-color: #57de72;
             box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.1), 0px 9px 15px 0px rgba(3, 132, 28, 0.5411764705882353);
         }
+
         .toggle input:checked + label:before {
             width: 10px;
             background-color: #fff;
         }
+
         .on {
             background-color: #6fc57c;
         }
+
         .on .toggle:before {
             color: rgba(62, 160, 81, 0.89);
         }
+
         .on .toggle:after {
             color: #fff;
         }
+
         /** End for switch */
     </style>
     <title>The spamminator options</title>
@@ -129,44 +170,27 @@
             <label for="toggle"></label>
         </div>
     </div>
-    <select id="action">
-        <option value="replace-with-text">Replace with text</option>
-        <option value="replace-with-image">Replace with image</option>
-        <option value="delete">Remove completely</option>
-    </select>
+    <div>
+        <label for="action">What to do</label>
+        <select id="action">
+            <option value="replace-with-image">Replace with image</option>
+            <option value="replace-with-text">Replace with text</option>
+            <option value="delete">Remove completely</option>
+        </select>
+    </div>
     <div class="clean-spam-option hidden" id="replace-with-image">
-        replace-with-image
+        <select id="image">
+            <option value="spam.png">Spam</option>
+            <option value="spam-man.png">Spam man</option>
+            <option value="random">Random</option>
+        </select>
     </div>
     <div class="clean-spam-option hidden" id="replace-with-text">
-        replace-with-text
+        <input id="text" value="" type="text" placeholder="Enter text"/>
     </div>
     <div class="clean-spam-option hidden" id="delete">
-        delete
     </div>
 </main>
-<script>
-  // Enable / disable
-  // https://codepen.io/agoodwin/pen/JBvBPr
-  const toggle = document.querySelector('#toggle');
-  const toggleOnOff = () => {
-    const enable = document.querySelector(".toggle-container").classList.toggle('on');
-    browser.storage.local.set({ enable }).catch(console.error);
-    return false;
-  }
-  toggle.addEventListener("click", toggleOnOff);
-
-  // Select action
-  const selectAction = (event) => {
-    if (event.target.id === "action") {
-      return false
-    }
-
-    document.querySelectorAll(".clean-spam-option").forEach((node) => node.classList.add("hidden"));
-    document.getElementById(event.target.value).classList.remove("hidden");
-
-    return false
-  }
-  document.getElementById("action").addEventListener("click", selectAction);
-</script>
+<script src="/popup.js"></script>
 </body>
 </html>

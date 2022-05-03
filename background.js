@@ -54,18 +54,18 @@ browser.storage.local.set({
   }
 }).catch(console.error);
 
-browser.storage.local.set({
-  enable: true,
-  cleanSpamAction: "replace-with-text",
-  cleanSpamOptions: {
-    text: "🔫 This spam message has been obliterated by the Spamminator 🔫"
-  }
-}).catch(console.error);
+// browser.storage.local.set({
+//   enable: true,
+//   cleanSpamAction: "replace-with-text",
+//   cleanSpamOptions: {
+//     text: "🔫 This spam message has been obliterated by the Spamminator 🔫"
+//   }
+// }).catch(console.error);
 
-browser.storage.local.set({
-  enable: true,
-  cleanSpamAction: "remove",
-}).catch(console.error);
+// browser.storage.local.set({
+//   enable: true,
+//   cleanSpamAction: "remove",
+// }).catch(console.error);
 
 function cleanSpams(context) {
   return browser.tabs.executeScript(
