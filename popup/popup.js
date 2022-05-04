@@ -1,21 +1,25 @@
-// debug code
-if (window.browser === undefined) {
-  window.__storage__ = {};
-  browser = {
-    storage: {
-      local: {
-        set(value) {
-          window.__storage__ = { ...window.__storage__, ...value }
-          console.debug("Storage is set to: ", window.__storage__);
-          return Promise.resolve(window.__storage__)
-        },
-        get(value) {
-          return Promise.resolve(window.__storage__)
-        }
-      }
-    }
-  }
-}
+// // debug code
+// if (window.browser === undefined) {
+//   if (window.chrome) {
+//     window.browser = window.chrome;
+//   } else {
+//     window.__storage__ = {};
+//     browser = {
+//       storage: {
+//         local: {
+//           set(value) {
+//             window.__storage__ = { ...window.__storage__, ...value }
+//             console.debug("Storage is set to: ", window.__storage__);
+//             return Promise.resolve(window.__storage__)
+//           },
+//           get(value) {
+//             return Promise.resolve(window.__storage__)
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 
 // Load value from storage to UI
 async function loadSettings() {

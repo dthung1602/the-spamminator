@@ -10,7 +10,7 @@
       "64": "images/logo/spam-logo-64.png"
     },
     "default_title": "The Spamminator",
-    "default_popup": "popup.html"
+    "default_popup": "popup/popup.html"
   },
   "content_scripts": [
     {
@@ -19,19 +19,21 @@
         "*://readmanganato.com/manga-*"
       ],
       "js": [
-        "mangasite.js"
+        "vendor/webextension-polyfill.js",
+        "scripts/mangasite.js"
       ],
       "all_frames": true
     }
   ],
   "background": {
     "scripts": [
-      "background.js"
+      "vendor/webextension-polyfill.js",
+      "scripts/background.js"
     ]
   },
   "web_accessible_resources": [
     "images/*",
-    "popup.js"
+    "vendor/webextension-polyfill.js"
   ],
   "permissions": [
     "storage",

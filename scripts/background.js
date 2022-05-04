@@ -67,10 +67,16 @@ browser.storage.local.set({
 //   cleanSpamAction: "remove",
 // }).catch(console.error);
 
-function cleanSpams(context) {
-  return browser.tabs.executeScript(
+async function cleanSpams(context) {
+  await browser.tabs.executeScript(
     context.tab.id, {
-      file: `/clean-spams.js`,
+      file: "/vendor/webextension-polyfill.js",
+      allFrames: true
+    }
+  )
+  await browser.tabs.executeScript(
+    context.tab.id, {
+      file: "/scripts/clean-spams.js",
       allFrames: true
     }
   )

@@ -1,0 +1,164 @@
+body {
+    width: 350px;
+    min-height: 400px;
+    padding: 1rem;
+    /*border: 1px solid gray;*/
+
+    background-color: #ff9295;
+
+    line-height: 1.6;
+    font-weight: 400;
+    font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: white;
+}
+
+header {
+    text-align: center;
+    font-weight: bold;
+}
+
+.title {
+    font-size: x-large;
+}
+
+.logo {
+    width: 6rem;
+    margin: 1rem 0;
+    transform: rotate(180deg);
+    transition: all 200ms ease-in;
+}
+
+main {
+    text-align: center;
+}
+
+main > * {
+    margin: 1rem 0;
+}
+
+label[for='action'] {
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+input[type='text'], select {
+    width: 100%;
+    height: 38px;
+    padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+    background-color: #fff;
+    border: 1px solid #D1D1D1;
+    border-radius: 4px;
+    box-shadow: none;
+    box-sizing: border-box;
+}
+
+input[type='text']:focus, select:focus {
+    border: 2px solid #fac400;
+    outline: 0;
+}
+
+label[for="action"] {
+    font-size: large;
+}
+
+/**
+ For switch
+ https://codepen.io/agoodwin/pen/JBvBPr
+*/
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+.toggle-container {
+    position: relative;
+    height: 90px;
+    width: 100%;
+}
+
+.toggle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    transition: background-color 0.2s cubic-bezier(0, -1.85, 0.27, 1.75);
+}
+
+.toggle:before {
+    content: 'OFF';
+    position: absolute;
+    left: -56px;
+    top: 30px;
+    font-size: 18px;
+    color: #fff;
+}
+
+.toggle:after {
+    content: 'ON';
+    position: absolute;
+    right: -46px;
+    top: 30px;
+    font-size: 18px;
+    color: rgba(253, 15, 21, 0.31);
+}
+
+.toggle label {
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    background-color: #fd1015;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.1), 0px 9px 15px 0px #ef4247;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.toggle label:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s cubic-bezier(0, -1.85, 0.27, 1.75);
+    height: 42px;
+    width: 42px;
+    background-color: #fd0f14;
+    border-radius: 46px;
+    box-shadow: inset 0px 0px 0px 8px #fff;
+}
+
+.toggle input {
+    display: none;
+}
+
+.toggle input:checked + label {
+    background-color: #57de72;
+    box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.1), 0px 9px 15px 0px rgba(3, 132, 28, 0.5411764705882353);
+}
+
+.toggle input:checked + label:before {
+    width: 10px;
+    background-color: #fff;
+}
+
+.on {
+    background-color: #6fc57c;
+}
+
+.on .toggle:before {
+    color: rgba(62, 160, 81, 0.89);
+}
+
+.on .toggle:after {
+    color: #fff;
+}
+
+.on .logo {
+    transform: rotate(0deg);
+}
+
+/** End for switch */

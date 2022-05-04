@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/popup/popup.css">
+    <title>The spamminator options</title>
+</head>
+<body>
+<header>
+    <div class="title">BEHOLD!</div>
+    <div class="title"> THE SPAMMINATOR!</div>
+    <img class="logo" src="../images/logo/spam-logo.png" alt="Spamminator logo"/>
+</header>
+<main>
+    <div class="toggle-container">
+        <div class="toggle">
+            <input type="checkbox" id="toggle"/>
+            <label for="toggle"></label>
+        </div>
+    </div>
+    <div>
+        <label for="action">What to do</label>
+        <select id="action">
+            <option value="replace-with-image">Replace with image</option>
+            <option value="replace-with-text">Replace with text</option>
+            <option value="remove">Remove completely</option>
+        </select>
+    </div>
+    <div class="clean-spam-option hidden" id="replace-with-image">
+        <select id="image">
+            <option value="behold-the-spamminator.jpg">Behold! The spamminator!</option>
+            <option value="destroyed-by-the-spamminator.jpg">Destroyed by the spamminator</option>
+            <option value="just-spamming.jpg">Just spamming</option>
+            <option value="spam.png">Spam!</option>
+            <option value="spam-everywhere.jpg">Spam everywhere</option>
+            <option value="spam-man.png">Spam man</option>
+            <option value="spam-spam-spam.webp">Spam? Spam? Spam?</option>
+            <option value="what-kind-of-spam-is-this.jpg">What kind of spam is this?</option>
+            <option value="you-shall-not-pass.jpeg">You shall not pass</option>
+            <option value="random">Random</option>
+        </select>
+    </div>
+    <div class="clean-spam-option hidden" id="replace-with-text">
+        <input id="text" value="" type="text" placeholder="Enter text"/>
+    </div>
+    <div class="clean-spam-option hidden" id="remove">
+    </div>
+</main>
+<script src="/vendor/webextension-polyfill.js"></script>
+<script src="/popup/popup.js"></script>
+</body>
+</html>
