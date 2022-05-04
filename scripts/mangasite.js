@@ -1,4 +1,4 @@
-const CHECK_INTERVAL = 3000;
+const CHECK_INTERVAL = 2000;
 
 function cleanSpams() {
   console.log(`Start checking for spams in ${window.location}`);
