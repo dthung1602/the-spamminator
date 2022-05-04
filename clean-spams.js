@@ -33,8 +33,15 @@
 
   function getRandomLocalImage() {
     const LOCAL_IMAGES = [
+      "behold-the-spamminator.jpg",
+      "destroyed-by-spamminator.jpg",
+      "just-spamming.jpg",
+      "spam-everywhere.jpg",
+      "spam-man.png",
       "spam.png",
-      "spam-man.png"
+      "spam-spam-spam.webp",
+      "what-kind-of-spam-is-this.jpg",
+      "you-shall-not-pass.jpeg"
     ];
     const index = Math.floor(Math.random() * LOCAL_IMAGES.length);
     return browser.runtime.getURL(`images/${LOCAL_IMAGES[index]}`);

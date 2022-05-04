@@ -32,7 +32,7 @@ async function loadSettings() {
 
   document.getElementById("toggle").checked = enable;
   document.getElementById("action").value = cleanSpamAction;
-  document.getElementById("image").value = cleanSpamOptions.image || "random";
+  document.getElementById("image").value = cleanSpamOptions.url || "random";
   document.getElementById("text").value = cleanSpamOptions.text || "";
 
   if (enable) {
