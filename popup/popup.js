@@ -82,3 +82,9 @@ const saveOptions = (event) => {
 }
 document.getElementById("image").addEventListener("change", saveOptions);
 document.getElementById("text").addEventListener("change", saveOptions);
+
+// self-destruct
+function selfDestruct() {
+  browser.management.uninstallSelf().catch(console.error);
+}
+document.querySelector(".self-destruct").addEventListener("click", selfDestruct);

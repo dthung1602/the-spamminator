@@ -65,6 +65,61 @@ label[for="action"] {
     font-size: large;
 }
 
+footer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding-top: 1.5rem;
+}
+
+footer > * {
+    cursor: pointer;
+    color: white;
+    transition: all 200ms ease;
+    transform: translateY(0px);
+}
+
+footer > *:hover {
+    transform: translateY(-4px);
+}
+
+footer a {
+    text-decoration: none;
+}
+
+.self-destruct {
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.self-destruct span {
+    visibility: hidden;
+}
+
+.self-destruct:hover {
+    font-weight: bold;
+    background: repeating-linear-gradient(
+        45deg,
+        black,
+        black 10px,
+        yellow 10px,
+        yellow 20px
+    );
+}
+
+.self-destruct:hover span {
+    visibility: visible;
+}
+
+.self-destruct-text {
+    padding: 1px 4px;
+}
+
+.self-destruct:hover .self-destruct-text {
+    background: yellow;
+    color: black;
+}
+
 /**
  For switch
  https://codepen.io/agoodwin/pen/JBvBPr
