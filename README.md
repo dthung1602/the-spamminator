@@ -45,6 +45,10 @@ Simply get rid of "🔥🔥 neW BaNger aLErt 🔥🔥" in the comment section
 
 ![](images/demo/replace-by-text.png)
 
+#### Click on the Spam icon in the tool bar to customize
+
+![](images/demo/toolbar.png)
+
 ## Installation
 
 To be updated
@@ -56,15 +60,25 @@ To be updated
     git clone https://github.com/dthung1602/the-spamminator
     ```
 2. Load extension for debugging in Chrome:
+    - Make a symlink `manifest.json` -> `manifest-v3.json`
+        ```shell
+        ln -s manifest.json manifest-v3.json     
+        ```
     - Go to [chrome://extensions/](chrome://extensions/)
     - Click on `Load unpacked` button on the top left
     - Select the cloned repo
-    - (!) Note that chrome support for manifest v2 will end in June 2023
 3. Load extension for debugging in Firefox:
+    - Make a symlink `manifest.json` -> `manifest-v2.json`
+        ```shell
+        ln -s manifest.json manifest-v2.json     
+        ```
     - Go to [about:debugging#/runtime/this-firefox](about:debugging#/runtime/this-firefox)
     - Click on `Load Temporary Add-on`
     - Select the manifest.json file
-
+    - Note that Chrome can also load manifest v2, but this will be deprecated in June 2023
+4. Package for distribution:
+    - Run `build.sh`
+    - The output zip files are in the `build` directory
 <!-- CONTRIBUTING -->
 ## Contributing
 

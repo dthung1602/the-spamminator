@@ -1,13 +1,16 @@
 {
   "manifest_version": 2,
   "name": "TheSpamminator",
-  "version": "0.1",
-  "description": "Remove banger alert spams from comment section of mangakakalot",
+  "version": "1.0",
+  "description": "Remove banger alert spams from comment section of mangakakalot & manganato",
   "icons": {
     "16": "images/logo/spam-logo-16.png",
     "32": "images/logo/spam-logo-32.png",
     "64": "images/logo/spam-logo-64.png"
   },
+  "web_accessible_resources": [
+    "images/*"
+  ],
   "browser_action": {
     "default_icon": {
       "16": "images/logo/spam-logo-16.png",
@@ -17,33 +20,25 @@
     "default_title": "The Spamminator",
     "default_popup": "popup/popup.html"
   },
+  "background": {
+    "scripts": [
+      "vendor/browser-polyfill.min.js",
+      "scripts/service-worker.js"
+    ]
+  },
   "content_scripts": [
     {
       "matches": [
-        "*://mangakakalot.com/chapter/*",
-        "*://readmanganato.com/manga-*"
+        "https://www.facebook.com/*"
       ],
       "js": [
-        "vendor/webextension-polyfill.js",
-        "scripts/mangasite.js"
+        "vendor/browser-polyfill.min.js",
+        "scripts/clean-spams.js"
       ],
       "all_frames": true
     }
   ],
-  "background": {
-    "scripts": [
-      "vendor/webextension-polyfill.js",
-      "scripts/background.js"
-    ]
-  },
-  "web_accessible_resources": [
-    "images/*",
-    "vendor/webextension-polyfill.js"
-  ],
   "permissions": [
-    "storage",
-    "activeTab",
-    "tabs",
-    "<all_urls>"
+    "storage"
   ]
 }

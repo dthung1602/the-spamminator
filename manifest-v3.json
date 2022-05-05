@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "TheSpamminator",
+  "version": "1.0",
+  "description": "Remove banger alert spams from comment section of mangakakalot & manganato",
+  "icons": {
+    "16": "images/logo/spam-logo-16.png",
+    "32": "images/logo/spam-logo-32.png",
+    "64": "images/logo/spam-logo-64.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["/images/*"],
+      "matches": ["https://www.facebook.com/*"]
+    }
+  ],
+  "action": {
+    "default_icon": {
+      "16": "images/logo/spam-logo-16.png",
+      "32": "images/logo/spam-logo-32.png",
+      "64": "images/logo/spam-logo-64.png"
+    },
+    "default_title": "The Spamminator",
+    "default_popup": "popup/popup.html"
+  },
+  "background": {
+    "service_worker": "scripts/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.facebook.com/*"
+      ],
+      "js": [
+        "vendor/browser-polyfill.min.js",
+        "scripts/clean-spams.js"
+      ],
+      "all_frames": true
+    }
+  ],
+  "permissions": [
+    "storage"
+  ]
+}
