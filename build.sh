@@ -4,12 +4,12 @@ set -e
 
 echo "--> Start"
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-BUILD_DIR="$SCRIPT_DIR/build"
-RAW_CONTENT="${BUILD_DIR}/raw"
+OUTPUT_DIR="$SCRIPT_DIR/output"
+RAW_CONTENT="${OUTPUT_DIR}/raw"
 
 echo "--> Preparing"
-if [ -d "$BUILD_DIR" ]; then
-    rm -rf "$BUILD_DIR"
+if [ -d "$OUTPUT_DIR" ]; then
+    rm -rf "$OUTPUT_DIR"
 fi
 mkdir -p "$RAW_CONTENT"
 

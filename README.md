@@ -88,7 +88,7 @@ To be updated
     - Note that Chrome can also load manifest v2, but this will be deprecated in June 2023
 4. Package for distribution:
     - Run `build.sh` (or `make build`)
-    - The output zip files are in the `build` directory
+    - The output zip files are in the `output` directory
 <!-- CONTRIBUTING -->
 ## Contributing
 
