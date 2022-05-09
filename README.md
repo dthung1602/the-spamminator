@@ -62,7 +62,8 @@ To be updated
 2. Load extension for debugging in Chrome:
     - Make a symlink `manifest.json` -> `manifest-v3.json`
         ```shell
-        ln -s manifest.json manifest-v3.json     
+        rm manifest.json
+        ln -s manifest-v3.json manifest.json     
         ```
     - Go to [chrome://extensions/](chrome://extensions/)
     - Click on `Load unpacked` button on the top left
@@ -70,7 +71,8 @@ To be updated
 3. Load extension for debugging in Firefox:
     - Make a symlink `manifest.json` -> `manifest-v2.json`
         ```shell
-        ln -s manifest.json manifest-v2.json     
+        rm manifest.json
+        ln -s manifest-v2.json manifest.json     
         ```
     - Go to [about:debugging#/runtime/this-firefox](about:debugging#/runtime/this-firefox)
     - Click on `Load Temporary Add-on`

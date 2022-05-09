@@ -16,7 +16,7 @@ function getAncestor(node, num, tillEncounterClass) {
 }
 
 function log(nodes) {
-  console.log(`Found ${nodes.length} bangers in ${window.document.title}`);
+  console.log(`Found ${nodes.length} link in ${window.document.title}`);
 }
 
 let counter = 0;
@@ -121,5 +121,7 @@ async function cleanSpams() {
     .forEach(action);
 }
 
-cleanSpams();
-setInterval(cleanSpams, 2000);
+cleanSpams().catch(console.error);
+browser.storage.local.get(["clearSpamInterval"])
+  .then(({ clearSpamInterval }) => setInterval(cleanSpams, clearSpamInterval))
+  .catch(console.error);

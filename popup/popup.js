@@ -21,16 +21,31 @@ if (window.browser === undefined) {
   }
 }
 
+// Util
+function serializeDomains(text) {
+  return text.split("\n").map(x => x.trim().toLowerCase()).filter(Boolean);
+}
+
+function deserializeDomains(domains) {
+  return domains.join("\n");
+}
+
 // Load value from storage to UI
 async function loadSettings() {
   // TODO add ban domain settings
   let {
     enable,
+    clearSpamInterval,
     cleanSpamAction,
     cleanSpamText,
-    cleanSpamImage
-  } = await browser.storage.local.get(["enable", "cleanSpamAction", "cleanSpamText", "cleanSpamImage"]);
+    cleanSpamImage,
+    banDomains
+  } = await browser.storage.local.get([
+    "enable", "clearSpamInterval", "cleanSpamAction",
+    "cleanSpamText", "cleanSpamImage", "banDomains"
+  ]);
 
+  // simple
   document.getElementById("toggle").checked = enable;
   document.getElementById("action").value = cleanSpamAction;
   document.getElementById("image").value = cleanSpamImage;
@@ -43,6 +58,10 @@ async function loadSettings() {
   }
 
   document.getElementById(cleanSpamAction).classList.remove("hidden");
+
+  // advance
+  document.getElementById("check-interval").value = clearSpamInterval;
+  document.getElementById("ban-domain").value = deserializeDomains(banDomains);
 }
 loadSettings().catch(console.error);
 
@@ -72,12 +91,31 @@ document.getElementById("action").addEventListener("change", selectAction);
 const saveOptions = (event) => {
   const cleanSpamText = document.getElementById("text").value;
   const cleanSpamImage = document.getElementById("image").value;
-  browser.storage.local.set({ cleanSpamText, cleanSpamImage }).catch(console.error);
+  const clearSpamInterval = parseInt(document.getElementById("check-interval").value);
+  const banDomains = serializeDomains(document.getElementById("ban-domain").value);
+  console.log({clearSpamInterval, banDomains});
+  browser.storage.local.set({ cleanSpamText, cleanSpamImage, clearSpamInterval, banDomains }).catch(console.error);
 }
 document.getElementById("image").addEventListener("change", saveOptions);
 document.getElementById("text").addEventListener("change", saveOptions);
+document.getElementById("check-interval").addEventListener("change", saveOptions);
+document.getElementById("ban-domain").addEventListener("change", saveOptions);
 
-// self-destruct
+// Advance
+const showAdvance = () => {
+  document.getElementById("basic").classList.add("hidden");
+  document.getElementById("advance").classList.remove("hidden");
+}
+document.getElementById("advance-btn").addEventListener("click", showAdvance);
+
+// Advance
+const showBasic = () => {
+  document.getElementById("advance").classList.add("hidden");
+  document.getElementById("basic").classList.remove("hidden");
+}
+document.getElementById("basic-btn").addEventListener("click", showBasic);
+
+// Self-destruct
 function selfDestruct() {
   browser.management.uninstallSelf().catch(console.error);
 }

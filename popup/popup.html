@@ -11,39 +11,62 @@
     <img class="logo" src="../images/logo/spam-logo.png" alt="Spamminator logo"/>
 </header>
 <main>
-    <div class="toggle-container">
-        <div class="toggle">
-            <input type="checkbox" id="toggle"/>
-            <label for="toggle"></label>
+    <section id="basic">
+        <div class="toggle-container">
+            <div class="toggle">
+                <input type="checkbox" id="toggle"/>
+                <label for="toggle"></label>
+            </div>
         </div>
-    </div>
-    <div>
-        <label for="action">What to do</label>
-        <select id="action">
-            <option value="replace-with-image">Replace with image</option>
-            <option value="replace-with-text">Replace with text</option>
-            <option value="remove">Remove completely</option>
-        </select>
-    </div>
-    <div class="clean-spam-option hidden" id="replace-with-image">
-        <select id="image">
-            <option value="behold-the-spamminator.jpg">Behold! The spamminator!</option>
-            <option value="destroyed-by-spamminator.jpg">Destroyed by the spamminator</option>
-            <option value="just-spamming.jpg">Just spamming</option>
-            <option value="spam.png">Spam!</option>
-            <option value="spam-everywhere.jpg">Spam everywhere</option>
-            <option value="spam-man.png">Spam man</option>
-            <option value="spam-spam-spam.webp">Spam? Spam? Spam?</option>
-            <option value="what-kind-of-spam-is-this.jpg">What kind of spam is this?</option>
-            <option value="you-shall-not-pass.jpeg">You shall not pass</option>
-            <option value="random">Random</option>
-        </select>
-    </div>
-    <div class="clean-spam-option hidden" id="replace-with-text">
-        <input id="text" value="" type="text" placeholder="Enter text (HTML allowed)"/>
-    </div>
-    <div class="clean-spam-option hidden" id="remove">
-    </div>
+        <div>
+            <label for="action">What to do</label>
+            <select id="action">
+                <option value="replace-with-image">Replace with image</option>
+                <option value="replace-with-text">Replace with text</option>
+                <option value="remove">Remove completely</option>
+            </select>
+        </div>
+        <div class="clean-spam-option hidden" id="replace-with-image">
+            <select id="image">
+                <option value="behold-the-spamminator.jpg">Behold! The spamminator!</option>
+                <option value="destroyed-by-spamminator.jpg">Destroyed by the spamminator</option>
+                <option value="dont-open-it.gif">Don't open it</option>
+                <option value="just-spamming.jpg">Just spamming</option>
+                <option value="spam.png">Spam!</option>
+                <option value="spam-everywhere.jpg">Spam everywhere</option>
+                <option value="spam-man.png">Spam man</option>
+                <option value="spam-spam-spam.webp">Spam? Spam? Spam?</option>
+                <option value="what-kind-of-spam-is-this.jpg">What kind of spam is this?</option>
+                <option value="you-shall-not-pass.jpeg">You shall not pass</option>
+                <option value="random">Random</option>
+            </select>
+        </div>
+        <div class="clean-spam-option hidden" id="replace-with-text">
+            <input id="text" value="" type="text" placeholder="Enter text (HTML allowed)"/>
+        </div>
+        <div class="clean-spam-option hidden" id="remove">
+        </div>
+        <div class="button-container">
+            <button id="advance-btn"><span>&#9881;</span> Advance</button>
+        </div>
+    </section>
+    <section id="advance" class="hidden">
+        <div>
+            <label for="check-interval" title="How often the spamminator search & remove spams">
+                Clear spam interval (in millisecond)
+            </label>
+            <input id="check-interval" value="" type="number">
+        </div>
+        <div>
+            <label for="ban-domain" title="Require page refresh to take affect">
+                Ban domains
+            </label>
+            <textarea id="ban-domain" placeholder="Enter ban domains, separated by newlines" rows="5"></textarea>
+        </div>
+        <div class="button-container">
+            <button id="basic-btn"><span>&#171;</span> Basic</button>
+        </div>
+    </section>
 </main>
 <footer>
     <a target="_blank" href="https://github.com/dthung1602/the-spamminator">Homepage</a>

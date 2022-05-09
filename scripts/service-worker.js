@@ -18,6 +18,7 @@ const DEFAULT_BAN_DOMAINS = [
   "mangalilo.com",
   "readerzoneclub.xyz",
   "manga4reader.com",
+  "elitemanga.org",
   // Other stuff
   "bit.do",
   "minepi.com",
@@ -31,6 +32,7 @@ async function migrateToVer1() {
     version: "1.0",
     banDomains: DEFAULT_BAN_DOMAINS,
     enable: true,
+    clearSpamInterval: 1000,
     cleanSpamAction: "replace-with-image",
     cleanSpamText: "",
     cleanSpamImage: "random",
