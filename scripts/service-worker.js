@@ -32,7 +32,7 @@ async function migrateToVer1() {
     version: "1.0",
     banDomains: DEFAULT_BAN_DOMAINS,
     enable: true,
-    clearSpamInterval: 1000,
+    clearSpamInterval: 1500,
     cleanSpamAction: "replace-with-image",
     cleanSpamText: "",
     cleanSpamImage: "random",

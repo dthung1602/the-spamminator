@@ -65,6 +65,10 @@ To be updated
         rm manifest.json
         ln -s manifest-v3.json manifest.json     
         ```
+        or simply 
+        ```shell
+        make v3
+        ```
     - Go to [chrome://extensions/](chrome://extensions/)
     - Click on `Load unpacked` button on the top left
     - Select the cloned repo
@@ -74,12 +78,16 @@ To be updated
         rm manifest.json
         ln -s manifest-v2.json manifest.json     
         ```
+        or simply
+        ```shell
+        make v2
+        ```
     - Go to [about:debugging#/runtime/this-firefox](about:debugging#/runtime/this-firefox)
     - Click on `Load Temporary Add-on`
     - Select the manifest.json file
     - Note that Chrome can also load manifest v2, but this will be deprecated in June 2023
 4. Package for distribution:
-    - Run `build.sh`
+    - Run `build.sh` (or `make build`)
     - The output zip files are in the `build` directory
 <!-- CONTRIBUTING -->
 ## Contributing
