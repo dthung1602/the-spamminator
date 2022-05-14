@@ -1,8 +1,18 @@
 // Utils
 
 function containBanDomain(node, banDomains) {
-  const linkText = node.textContent.toLowerCase();
-  return banDomains.some((domain) => linkText.includes(domain));
+  const text = node.textContent.toLowerCase();
+  for (let domain of banDomains) {
+    if (domain.startsWith("/") && domain.endsWith("/")) {
+      const regex = new RegExp(domain.slice(1, domain.length - 1), "i");
+      if (text.match(regex)) {
+        return true;
+      }
+    } else if (text.includes(domain)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 function getAncestor(node, num, tillEncounterClass) {
@@ -112,13 +122,14 @@ async function cleanSpams() {
     .map((node) => getAncestor(node, 11).querySelector("._3-8m"))
     .forEach(action);
 
-  // replace links in comments
-  const linksInComments = window.document.querySelectorAll("._5mdd a");
-  log(linksInComments);
-  Array.from(linksInComments)
+  // replace text spams in comments & nested comments
+  const uncheckedComments = window.document.querySelectorAll("._3-8m:not(.spam-free)");
+  Array.from(uncheckedComments)
     .filter(filter)
-    .map((node) => getAncestor(node, 3))
-    .forEach(action);
+    .forEach((node) => {
+      node.classList.add("spam-free");
+      action(node)
+    });
 }
 
 cleanSpams().catch(console.error);

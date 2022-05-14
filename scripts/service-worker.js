@@ -1,4 +1,4 @@
-if ('function' === typeof importScripts) {
+if ("function" === typeof importScripts) {
   importScripts("/vendor/browser-polyfill.min.js");
 }
 
@@ -39,8 +39,34 @@ async function migrateToVer1() {
   })
 }
 
+const NEW_BAN_DOMAINS_1 = [
+  "mangadungeon.com",
+  "manga4all.net",
+  "wikiraw.net",
+  "zcash4.com",
+  "buzz15.com",
+  "www.salarybaar.com",
+
+  "/www[a-z0-9-.]*work[a-z0-9-.]*com/",
+  // This regex should cover:
+  // "www.works43.com",
+  // "www.net.works39.com",
+  // "www.fast.works39.com",
+  // "www.easywork2.com",
+]
+
+async function migrationToVer1_0_1() {
+  let { banDomains } = await browser.storage.local.get(["banDomains"]);
+  banDomains = Array.from(new Set([...banDomains, ...NEW_BAN_DOMAINS_1]));
+  await browser.storage.local.set({
+    version: "1.0.1",
+    banDomains
+  })
+}
+
 const migrations = [
-  ["1.0", migrateToVer1]
+  ["1.0", migrateToVer1],
+  ["1.0.1", migrationToVer1_0_1],
 ];
 
 browser.runtime.onInstalled.addListener(async () => {
