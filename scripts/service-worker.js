@@ -60,23 +60,31 @@ const NEW_BAN_DOMAINS_1 = [
   "/www[a-z0-9-.]*cash[a-z0-9-.]*com/",
 ]
 
-async function migrationToVer1_0_1() {
-  let { banDomains } = await browser.storage.local.get(["banDomains"]);
+DEFAULT_TEXT = "<i>Just a spam, nothing to see here</i>";
+
+async function migrationToVer1_1_0() {
+  let { banDomains, cleanSpamText, clearSpamInterval } = await browser.storage.local.get([
+    "banDomains", "cleanSpamText", "clearSpamInterval"
+  ]);
   banDomains = Array.from(new Set([...banDomains, ...NEW_BAN_DOMAINS_1]));
+  cleanSpamText = cleanSpamText || DEFAULT_TEXT;
+  clearSpamInterval = clearSpamInterval === 1500 ? 1000 : clearSpamInterval;
   await browser.storage.local.set({
-    version: "1.0.1",
-    banDomains
+    version: "1.1.0",
+    banDomains,
+    cleanSpamText,
+    clearSpamInterval,
   })
 }
 
 const migrations = [
   ["1.0", migrateToVer1],
-  ["1.0.1", migrationToVer1_0_1],
+  ["1.1.0", migrationToVer1_1_0],
 ];
 
 browser.runtime.onInstalled.addListener(async () => {
     try {
-      let { version: installedVersion } = browser.storage.local.get("version");
+      let { version: installedVersion } = await browser.storage.local.get("version");
       installedVersion = installedVersion || "0.1";
       for (let [ver, migrate] of migrations) {
         if (installedVersion < ver) {
