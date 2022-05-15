@@ -51,7 +51,8 @@ Simply get rid of "🔥🔥 neW BaNger aLErt 🔥🔥" in the comment section
 
 ## Installation
 
-To be updated
+- Chrome (desktop only) + Edge: https://chrome.google.com/webstore/detail/thespamminator/dnpihknfmkmoldifndaajhcceejniabd
+- Firefox: https://addons.mozilla.org/en-US/firefox/addon/thespamminator/
 
 ## Development
 
