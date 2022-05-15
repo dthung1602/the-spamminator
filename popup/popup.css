@@ -1,5 +1,6 @@
 body {
-    width: 400px;
+    width: 420px;
+    overflow-x: hidden;
     margin: 0;
 
     background-color: #ff9295;
@@ -87,6 +88,81 @@ label a:hover {
     text-decoration: underline;
 }
 
+#about {
+    font-size: 1rem;
+}
+
+#about a {
+    text-decoration: none;
+    color: white;
+}
+
+#version {
+    margin-bottom: 8px;
+}
+
+#version span {
+    font-weight: bold;
+    padding: 6px 16px;
+    background: rgba(122, 122, 122, 0.2);
+    color: white;
+    border-radius: 16px;
+}
+
+#what-new {
+    font-size: small;
+    margin-top: 0;
+}
+
+#rate-me div {
+    cursor: pointer;
+    transition: all 0.2s linear;
+    font-size: large;
+}
+
+#rate-me div:last-child {
+    transform: scale(1.15);
+}
+
+#rate-me:hover div:last-child {
+    transform: scale(1.5);
+}
+
+#issues {
+    display: inline-flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+}
+
+#issues a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.1s linear;
+    transform: translateY(0);
+}
+
+#issues a:hover {
+    transform: translateY(-4px);
+}
+
+#issues img {
+    margin-right: 4px;
+}
+
+#author span {
+    margin-top: 20px;
+    border-radius: 16px;
+    font-style: italic;
+    font-size: 0.9rem;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 .button-container {
     display: flex;
     justify-content: center;
@@ -131,11 +207,11 @@ footer > * {
     cursor: pointer;
     color: white;
     transition: all 200ms ease;
-    transform: translateY(0px);
+    transform: scale(1);
 }
 
 footer > *:hover {
-    transform: translateY(-4px);
+    transform: scale(1.25);
 }
 
 footer a {

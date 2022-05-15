@@ -38,6 +38,23 @@ function debounce(func, time) {
   }
 }
 
+function detectBrowser() {
+  const userAgent = navigator.userAgent;
+  if (userAgent.match(/chrome|chromium|crios/i)) {
+    return "chrome";
+  } else if (userAgent.match(/firefox|fxios/i)) {
+    return "firefox";
+  } else if (userAgent.match(/safari/i)) {
+    return "safari";
+  } else if (userAgent.match(/opr\//i)) {
+    return "opera";
+  } else if (userAgent.match(/edg/i)) {
+    return "edge";
+  } else {
+    return "none";
+  }
+}
+
 // Load value from storage to UI
 async function loadSettings() {
   // TODO add ban domain settings
@@ -71,6 +88,7 @@ async function loadSettings() {
   document.getElementById("check-interval").value = clearSpamInterval;
   document.getElementById("ban-domain").value = deserializeDomains(banDomains);
 }
+
 loadSettings().catch(console.error);
 
 // Enable / disable
@@ -108,22 +126,33 @@ document.getElementById("text").addEventListener("input", saveOptions);
 document.getElementById("check-interval").addEventListener("input", saveOptions);
 document.getElementById("ban-domain").addEventListener("input", saveOptions);
 
-// Advance
-const showAdvance = () => {
-  document.getElementById("basic").classList.add("hidden");
-  document.getElementById("advance").classList.remove("hidden");
+// Switch between sections
+const changeSection = (sectionId) => {
+  document.querySelectorAll("section").forEach(node => node.classList.add("hidden"));
+  document.getElementById(sectionId).classList.remove("hidden");
 }
-document.getElementById("advance-btn").addEventListener("click", showAdvance);
+document.getElementById("advance-btn").addEventListener("click", () => changeSection("advance"));
+document.getElementById("basic-btn").addEventListener("click", () => changeSection("basic"));
+let isAboutPageShown = false;
+document.getElementById("about-btn").addEventListener("click", () => {
+  changeSection(isAboutPageShown ? "basic" : "about")
+  document.getElementById("about-btn").innerHTML = isAboutPageShown ? "&#x24D8; About" : "&#12296; Back";
+  isAboutPageShown = !isAboutPageShown;
+});
 
-// Basic
-const showBasic = () => {
-  document.getElementById("advance").classList.add("hidden");
-  document.getElementById("basic").classList.remove("hidden");
+// Rating
+const openRatingPage = () => {
+  const browser = detectBrowser();
+  const url = browser === "firefox"
+    ? "https://addons.mozilla.org/en-US/firefox/addon/thespamminator/"
+    : "https://chrome.google.com/webstore/detail/thespamminator/dnpihknfmkmoldifndaajhcceejniabd";
+  window.open(url, '_blank').focus();
 }
-document.getElementById("basic-btn").addEventListener("click", showBasic);
+document.getElementById("rate-me").addEventListener("click", openRatingPage);
 
 // Self-destruct
 function selfDestruct() {
   browser.management.uninstallSelf().catch(console.error);
 }
+
 document.querySelector(".self-destruct").addEventListener("click", selfDestruct);
