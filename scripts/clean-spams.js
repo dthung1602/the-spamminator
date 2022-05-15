@@ -8,7 +8,7 @@ function containBanDomain(node, banDomains) {
       if (text.match(regex)) {
         return true;
       }
-    } else if (text.includes(domain)) {
+    } else if (text.includes(domain.toLowerCase())) {
       return true;
     }
   }

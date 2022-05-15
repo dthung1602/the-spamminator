@@ -58,10 +58,18 @@
             <input id="check-interval" value="" type="number" min="200" step="100">
         </div>
         <div>
-            <label for="ban-domain" title="Require page refresh to take affect">
-                Ban domains
+            <label for="ban-domain">
+                Ban terms -
+                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions" target="_blank">
+                    JS regex accepted &#9432;
+                </a>
             </label>
-            <textarea id="ban-domain" placeholder="Enter ban domains, separated by newlines" rows="5"></textarea>
+            <textarea
+                id="ban-domain"
+                placeholder="Enter ban terms, each on one line. JavaScript regex is accepted. Matching is case insensitive."
+                rows="5"
+            >
+            </textarea>
         </div>
         <div class="button-container">
             <button id="basic-btn"><span>&#171;</span> Basic</button>

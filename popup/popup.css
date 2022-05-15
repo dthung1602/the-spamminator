@@ -76,6 +76,17 @@ textarea {
     min-height: 90px;
 }
 
+label a {
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: white;
+    font-style: italic;
+}
+
+label a:hover {
+    text-decoration: underline;
+}
+
 .button-container {
     display: flex;
     justify-content: center;
