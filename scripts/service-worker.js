@@ -43,16 +43,21 @@ const NEW_BAN_DOMAINS_1 = [
   "mangadungeon.com",
   "manga4all.net",
   "wikiraw.net",
-  "zcash4.com",
+
   "buzz15.com",
   "www.salarybaar.com",
 
+  // This regex should cover:
+  // Www.cashapp1.com
+  // www.zcash4.com
   "/www[a-z0-9-.]*work[a-z0-9-.]*com/",
+
   // This regex should cover:
   // "www.works43.com",
   // "www.net.works39.com",
   // "www.fast.works39.com",
   // "www.easywork2.com",
+  "/www[a-z0-9-.]*cash[a-z0-9-.]*com/",
 ]
 
 async function migrationToVer1_0_1() {
