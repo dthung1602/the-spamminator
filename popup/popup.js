@@ -30,6 +30,14 @@ function deserializeDomains(domains) {
   return domains.join("\n");
 }
 
+function debounce(func, time) {
+  let timeoutHandler;
+  return function (...args) {
+    clearTimeout(timeoutHandler);
+    timeoutHandler = setTimeout(() => func(...args), time);
+  }
+}
+
 // Load value from storage to UI
 async function loadSettings() {
   // TODO add ban domain settings
@@ -88,18 +96,17 @@ const selectAction = (event) => {
 document.getElementById("action").addEventListener("change", selectAction);
 
 // Save options
-const saveOptions = (event) => {
+const saveOptions = debounce((event) => {
   const cleanSpamText = document.getElementById("text").value;
   const cleanSpamImage = document.getElementById("image").value;
   const clearSpamInterval = parseInt(document.getElementById("check-interval").value);
   const banDomains = serializeDomains(document.getElementById("ban-domain").value);
-  console.log({clearSpamInterval, banDomains});
   browser.storage.local.set({ cleanSpamText, cleanSpamImage, clearSpamInterval, banDomains }).catch(console.error);
-}
-document.getElementById("image").addEventListener("change", saveOptions);
-document.getElementById("text").addEventListener("change", saveOptions);
-document.getElementById("check-interval").addEventListener("change", saveOptions);
-document.getElementById("ban-domain").addEventListener("change", saveOptions);
+}, 100);
+document.getElementById("image").addEventListener("input", saveOptions);
+document.getElementById("text").addEventListener("input", saveOptions);
+document.getElementById("check-interval").addEventListener("input", saveOptions);
+document.getElementById("ban-domain").addEventListener("input", saveOptions);
 
 // Advance
 const showAdvance = () => {
@@ -108,7 +115,7 @@ const showAdvance = () => {
 }
 document.getElementById("advance-btn").addEventListener("click", showAdvance);
 
-// Advance
+// Basic
 const showBasic = () => {
   document.getElementById("advance").classList.add("hidden");
   document.getElementById("basic").classList.remove("hidden");
