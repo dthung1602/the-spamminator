@@ -77,9 +77,26 @@ async function migrationToVer1_1_0() {
   })
 }
 
+const NEW_BAN_DOMAINS_2 = [
+  "mangas20.com",
+  "dreamjob",
+  "vyvymanga",
+  "mangadownloads.xyz"
+]
+
+async function migrationToVer1_2_0() {
+  let { banDomains } = await browser.storage.local.get(["banDomains"]);
+  banDomains = Array.from(new Set([...banDomains, ...NEW_BAN_DOMAINS_2]));
+  await browser.storage.local.set({
+    version: "1.2.0",
+    banDomains,
+  })
+}
+
 const migrations = [
   ["1.0", migrateToVer1],
   ["1.1.0", migrationToVer1_1_0],
+  ["1.2.0", migrationToVer1_2_0],
 ];
 
 browser.runtime.onInstalled.addListener(async () => {
