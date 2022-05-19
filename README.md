@@ -6,6 +6,9 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
+<br />
+[![Chrome Web Store][chrome-rating]][chrome-rating-url]
+[![Firefox Web Store][firefox-rating]][firefox-rating-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -90,6 +93,7 @@ Simply get rid of "🔥🔥 neW BaNger aLErt 🔥🔥" in the comment section
 4. Package for distribution:
     - Run `build.sh` (or `make build`)
     - The output zip files are in the `output` directory
+
 <!-- CONTRIBUTING -->
 ## Contributing
 
@@ -121,6 +125,7 @@ Project Link: [https://github.com/dthung1602/the-spamminator](https://github.com
 ## Acknowledgements
 * [Best README template](https://github.com/othneildrew/Best-README-Template)
 * [Img Shields](https://shields.io)
+* Icons from [svgrepo](https://www.svgrepo.com/)
 * Random spam meme on the Internet
 
 
@@ -137,3 +142,7 @@ Project Link: [https://github.com/dthung1602/the-spamminator](https://github.com
 [issues-url]: https://github.com/dthung1602/the-spamminator/issues
 [license-shield]: https://img.shields.io/github/license/dthung1602/the-spamminator.svg?style=flat-square
 [license-url]: https://github.com/dthung1602/the-spamminator/blob/master/LICENSE
+[chrome-rating]: https://img.shields.io/chrome-web-store/rating/dnpihknfmkmoldifndaajhcceejniabd?label=Chrome%20rating&style=flat-square&color=green
+[chrome-rating-url]: https://chrome.google.com/webstore/detail/thespamminator/dnpihknfmkmoldifndaajhcceejniabd
+[firefox-rating]: https://img.shields.io/amo/rating/thespamminator?label=Firefox%20rating&style=flat-square&color=yellow
+[firefox-rating-url]: https://addons.mozilla.org/en-US/firefox/addon/thespamminator/
