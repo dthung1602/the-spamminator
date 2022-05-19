@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "TheSpamminator",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Remove banger alert spams from comment section of mangakakalot & manganato",
   "icons": {
     "16": "images/logo/spam-logo-16.png",
