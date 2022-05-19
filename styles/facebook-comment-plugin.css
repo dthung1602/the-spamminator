@@ -1,0 +1,13 @@
+.spam-comment-root {
+    background-color: #ececec;
+}
+
+.restore-comment {
+    cursor: pointer;
+    font-weight: bold;
+    color: #3b64b6;
+}
+
+.restore-comment:hover {
+    text-decoration: underline;
+}
