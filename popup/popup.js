@@ -12,7 +12,7 @@ if (window.browser === undefined) {
             console.debug("Storage is set to: ", window.__storage__);
             return Promise.resolve(window.__storage__)
           },
-          get(value) {
+          get() {
             return Promise.resolve(window.__storage__)
           }
         }
@@ -114,13 +114,13 @@ const selectAction = (event) => {
 document.getElementById("action").addEventListener("change", selectAction);
 
 // Save options
-const saveOptions = debounce((event) => {
+const saveOptions = debounce(() => {
   const cleanSpamText = document.getElementById("text").value;
   const cleanSpamImage = document.getElementById("image").value;
   const clearSpamInterval = parseInt(document.getElementById("check-interval").value);
   const banDomains = serializeDomains(document.getElementById("ban-domain").value);
   browser.storage.local.set({ cleanSpamText, cleanSpamImage, clearSpamInterval, banDomains }).catch(console.error);
-}, 100);
+}, 1000);
 document.getElementById("image").addEventListener("input", saveOptions);
 document.getElementById("text").addEventListener("input", saveOptions);
 document.getElementById("check-interval").addEventListener("input", saveOptions);
