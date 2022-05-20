@@ -14,7 +14,7 @@ fi
 mkdir -p "$RAW_CONTENT"
 
 cd "$SCRIPT_DIR"
-cp -r vendor scripts popup images "$RAW_CONTENT"
+cp -r vendor scripts styles popup images "$RAW_CONTENT"
 rm -rf "$RAW_CONTENT/images/demo"
 
 cd "$RAW_CONTENT"

@@ -81,7 +81,8 @@ const NEW_BAN_DOMAINS_2 = [
   "mangas20.com",
   "dreamjob",
   "vyvymanga",
-  "mangadownloads.xyz"
+  "mangadownloads.xyz",
+  "/www[a-z0-9-.]*livejob[a-z0-9-.]*com/"
 ]
 
 async function migrationToVer1_2_0() {
