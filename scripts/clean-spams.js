@@ -78,6 +78,8 @@ function createBlackListButton(spamDomain) {
   button.addEventListener("click", async () => {
     let { banDomains } = await browser.storage.local.get(["banDomains"]);
     banDomains = Array.from(new Set([...banDomains, spamDomain]));
+    button.previousSibling.remove();
+    button.remove();
     await browser.storage.local.set({ banDomains });
   });
   return button;
@@ -185,19 +187,24 @@ async function cleanSpams() {
 }
 
 function addBlackListButtons() {
-  let links = window.document.querySelectorAll("._3-8y:not(.spam-comment-root) ._5mdd a");
-  links = Array.from(new Set(links));
-  links
+  const links = window.document.querySelectorAll("._3-8y:not(.spam-comment-root) ._5mdd a");
+  Array.from(new Set(links))
     .forEach((node) => {
       try {
         const spamLink = new URL(node.href).searchParams.get("u");
         const spamDomain = spamLink ? new URL(spamLink).host : node.href;
+
+        // skip "See more" links
+        if (spamDomain.includes("facebook.com")) {
+          return
+        }
 
         const buttonContainer = getAncestor(node, 9, "_3-8y").querySelector("._2vq9");
         if (!buttonContainer.querySelector(".additional-button")) {
           buttonContainer.appendChild(htmlToElement(`<span aria-hidden="true"> · </span>`));
           buttonContainer.appendChild(createBlackListButton(spamDomain));
         }
+
       } catch (e) {
         console.error(e);
         console.log(node.href);
