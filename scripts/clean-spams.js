@@ -65,12 +65,22 @@ const restoreText = "⟲ Restore comment";
 const hideText = "⟳ Hide spam"
 
 function createRestoreButton(node, restoreKey) {
-  const restoreButton = htmlToElement(`<span class="restore-comment">${restoreText}</span>`);
+  const restoreButton = htmlToElement(`<span class="additional-button">${restoreText}</span>`);
   restoreButton.addEventListener("click", () => {
     swapStoredContent(node, restoreKey);
     restoreButton.innerText = restoreButton.innerText === restoreText ? hideText : restoreText;
   });
   return restoreButton;
+}
+
+function createBlackListButton(spamDomain) {
+  const button = htmlToElement(`<span class="additional-button">✖ Blacklist domain</span>`);
+  button.addEventListener("click", async () => {
+    let { banDomains } = await browser.storage.local.get(["banDomains"]);
+    banDomains = Array.from(new Set([...banDomains, spamDomain]));
+    await browser.storage.local.set({ banDomains });
+  });
+  return button;
 }
 
 // Actions
@@ -170,7 +180,31 @@ async function cleanSpams() {
     .map(count);
 
   console.log(`Found ${spamCount} spams`);
+
+  addBlackListButtons();
 }
+
+function addBlackListButtons() {
+  let links = window.document.querySelectorAll("._3-8y:not(.spam-comment-root) ._5mdd a");
+  links = Array.from(new Set(links));
+  links
+    .forEach((node) => {
+      try {
+        const spamLink = new URL(node.href).searchParams.get("u");
+        const spamDomain = spamLink ? new URL(spamLink).host : node.href;
+
+        const buttonContainer = getAncestor(node, 9, "_3-8y").querySelector("._2vq9");
+        if (!buttonContainer.querySelector(".additional-button")) {
+          buttonContainer.appendChild(htmlToElement(`<span aria-hidden="true"> · </span>`));
+          buttonContainer.appendChild(createBlackListButton(spamDomain));
+        }
+      } catch (e) {
+        console.error(e);
+        console.log(node.href);
+      }
+    })
+}
+
 
 cleanSpams().catch(console.error);
 browser.storage.local.get(["clearSpamInterval"])

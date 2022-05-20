@@ -105,8 +105,8 @@ browser.runtime.onInstalled.addListener(async () => {
       installedVersion = installedVersion || "0.1";
       for (let [ver, migrate] of migrations) {
         if (installedVersion < ver) {
-          console.log(`Migrating to version ${ver}`)
-          await migrate()
+          console.log(`Migrating to version ${ver}`);
+          await migrate();
         }
       }
     } catch (e) {

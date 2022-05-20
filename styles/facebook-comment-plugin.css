@@ -2,12 +2,12 @@
     background-color: #ececec;
 }
 
-.restore-comment {
+.additional-button {
     cursor: pointer;
     font-weight: bold;
     color: #3b64b6;
 }
 
-.restore-comment:hover {
+.additional-button:hover {
     text-decoration: underline;
 }
