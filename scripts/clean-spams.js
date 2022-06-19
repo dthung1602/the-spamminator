@@ -74,7 +74,7 @@ function createRestoreButton(node, restoreKey) {
 }
 
 function createBlackListButton(spamDomain) {
-  const button = htmlToElement(`<span class="additional-button">✖ Blacklist domain</span>`);
+  const button = htmlToElement(`<span class="additional-button" title="Add this domain to The Spamminator's blacklist">✖ Blacklist domain</span>`);
   button.addEventListener("click", async () => {
     let { banDomains } = await browser.storage.local.get(["banDomains"]);
     banDomains = Array.from(new Set([...banDomains, spamDomain]));
@@ -158,27 +158,37 @@ async function cleanSpams() {
   ]);
 
   const action = actionMapping.get(cleanSpamAction);
-  const filter = (node) => containBanDomain(node, banDomains);
+  const filterContainSpam = (node) => containBanDomain(node, banDomains);
 
   let spamCount = 0;
   const count = () => spamCount += 1;
 
-  // replace links in nested comments
+  const performAction = (node) => {
+    node.classList.add("spam-free");
+    action(node);
+  }
+
+  // first, find the nested spam comments
+  // if the outer comment & the nested comment belongs to the same account, perform action on the outer comment
+  // the nested spammer comment is handled later
   const linksInNestedComments = window.document.querySelectorAll(".UFIImageBlockContent .UFIImageBlockContent ._5mdd a");
   Array.from(linksInNestedComments)
-    .filter(filter)
-    .map((node) => getAncestor(node, 11).querySelector("._3-8m"))
-    .map(action)
+    .filter(filterContainSpam)
+    .map((node) => {
+      const spammerName = getAncestor(node, 5).querySelector(".UFICommentActorName").text;
+      const outerComment = getAncestor(node, 11);
+      const outerCommenterName = outerComment.querySelector(".UFICommentActorName").text;
+      return spammerName === outerCommenterName ? outerComment.querySelector("._3-8m") : null;
+    })
+    .filter(Boolean)
+    .map(performAction)
     .map(count);
 
-  // replace text spams in comments & nested comments
+  // find all spam comments, nested or not, and perform actions on them
   const uncheckedComments = window.document.querySelectorAll("._3-8m:not(.spam-free)");
   Array.from(uncheckedComments)
-    .filter(filter)
-    .map((node) => {
-      node.classList.add("spam-free");
-      action(node)
-    })
+    .filter(filterContainSpam)
+    .map(performAction)
     .map(count);
 
   console.log(`Found ${spamCount} spams`);
